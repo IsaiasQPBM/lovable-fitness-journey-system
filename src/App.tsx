@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import TreinosManagement from "./pages/TreinosManagement";
+import ExerciseLibrary from "./pages/ExerciseLibrary";
+import TrainingPlanner from "./pages/TrainingPlanner";
+import WorkoutExecution from "./pages/WorkoutExecution";
+import BodyMonitoringHome from "./pages/BodyMonitoring/BodyMonitoringHome";
+import AddMeasurement from "./pages/BodyMonitoring/AddMeasurement";
+import BodyGoals from "./pages/BodyMonitoring/BodyGoals";
+import AddGoal from "./pages/BodyMonitoring/AddGoal";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +25,23 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          
+          {/* Treinos Module Routes */}
+          <Route path="/treinos" element={<TreinosManagement />} />
+          <Route path="/exercise-library" element={<ExerciseLibrary />} />
+          <Route path="/training-planner" element={<TrainingPlanner />} />
+          <Route path="/workout-execution" element={<WorkoutExecution />} />
+          
+          {/* Body Monitoring Module Routes */}
+          <Route path="/body-monitoring" element={<BodyMonitoringHome />} />
+          <Route path="/body-monitoring/measurements/add" element={<AddMeasurement />} />
+          <Route path="/body-monitoring/goals" element={<BodyGoals />} />
+          <Route path="/body-monitoring/goals/add" element={<AddGoal />} />
+          
+          {/* Nutrition Module Routes */}
+          <Route path="/nutricao/*" element={<h1>Módulo de Nutrição</h1>} />
+          
+          {/* Catch-all Not Found Route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
