@@ -15,6 +15,7 @@ import AddMeasurement from "./pages/BodyMonitoring/AddMeasurement";
 import BodyGoals from "./pages/BodyMonitoring/BodyGoals";
 import AddGoal from "./pages/BodyMonitoring/AddGoal";
 import NutricaoHome from "./pages/Nutricao/NutricaoHome";
+import RecoveryHome from "./pages/Recovery/RecoveryHome";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,9 @@ const App = () => (
           <Route path="/body-monitoring/measurements/add" element={<AddMeasurement />} />
           <Route path="/body-monitoring/goals" element={<BodyGoals />} />
           <Route path="/body-monitoring/goals/add" element={<AddGoal />} />
+          
+          {/* Recovery Module Routes */}
+          <Route path="/recovery" element={<RecoveryHome />} />
           
           {/* Nutrition Module Routes */}
           <Route path="/nutricao" element={<NutricaoHome />} />

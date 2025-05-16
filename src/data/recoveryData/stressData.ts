@@ -1,0 +1,91 @@
+
+import { StressRecord } from "@/types/recovery";
+
+// Mock stress records data
+export const stressRecords: StressRecord[] = [
+  {
+    id: "stress-1",
+    userId: "user-1",
+    date: new Date("2024-05-15"),
+    hrvMorning: 65,
+    hrvEvening: 60,
+    perceivedStressLevel: 4,
+    energyLevel: 7,
+    mentalFatigue: 5,
+    physicalFatigue: 6,
+    stressors: ["trabalho", "treino intenso"],
+    recoveryScore: 75,
+    trainingReadiness: 7,
+    notes: "Dia produtivo com leve estresse do trabalho.",
+    createdAt: new Date("2024-05-15T21:00:00"),
+    updatedAt: new Date("2024-05-15T21:00:00")
+  },
+  {
+    id: "stress-2",
+    userId: "user-1",
+    date: new Date("2024-05-14"),
+    hrvMorning: 58,
+    hrvEvening: 55,
+    perceivedStressLevel: 7,
+    energyLevel: 5,
+    mentalFatigue: 7,
+    physicalFatigue: 6,
+    stressors: ["reunião importante", "deadline", "treino"],
+    recoveryScore: 60,
+    trainingReadiness: 5,
+    notes: "Dia muito estressante no trabalho, sentindo a fadiga acumulada.",
+    createdAt: new Date("2024-05-14T21:30:00"),
+    updatedAt: new Date("2024-05-14T21:30:00")
+  },
+  {
+    id: "stress-3",
+    userId: "user-1",
+    date: new Date("2024-05-13"),
+    hrvMorning: 72,
+    hrvEvening: 68,
+    perceivedStressLevel: 3,
+    energyLevel: 8,
+    mentalFatigue: 3,
+    physicalFatigue: 4,
+    stressors: ["treino leve"],
+    recoveryScore: 85,
+    trainingReadiness: 9,
+    notes: "Dia tranquilo, sem compromissos estressantes, boa recuperação.",
+    createdAt: new Date("2024-05-13T20:45:00"),
+    updatedAt: new Date("2024-05-13T20:45:00")
+  },
+  {
+    id: "stress-4",
+    userId: "user-1",
+    date: new Date("2024-05-12"),
+    hrvMorning: 63,
+    hrvEvening: 62,
+    perceivedStressLevel: 5,
+    energyLevel: 6,
+    mentalFatigue: 5,
+    physicalFatigue: 7,
+    stressors: ["treino pesado", "trabalho"],
+    recoveryScore: 68,
+    trainingReadiness: 6,
+    notes: "Dia normal, treino intenso de pernas.",
+    createdAt: new Date("2024-05-12T22:00:00"),
+    updatedAt: new Date("2024-05-12T22:00:00")
+  },
+  {
+    id: "stress-5",
+    userId: "user-1",
+    date: new Date("2024-05-11"),
+    hrvMorning: 67,
+    hrvEvening: 65,
+    perceivedStressLevel: 4,
+    energyLevel: 7,
+    mentalFatigue: 4,
+    physicalFatigue: 5,
+    stressors: ["treino", "compromissos sociais"],
+    recoveryScore: 72,
+    trainingReadiness: 7,
+    notes: "Equilibrado, bom treino e encontro com amigos.",
+    createdAt: new Date("2024-05-11T21:15:00"),
+    updatedAt: new Date("2024-05-11T21:15:00")
+  }
+];
