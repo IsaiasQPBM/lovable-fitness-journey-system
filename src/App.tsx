@@ -17,6 +17,7 @@ import AddGoal from "./pages/BodyMonitoring/AddGoal";
 import NutricaoHome from "./pages/Nutricao/NutricaoHome";
 import RecoveryHome from "./pages/Recovery/RecoveryHome";
 import DataAnalysisHome from "./pages/DataAnalysis/DataAnalysisHome";
+import KnowledgeHome from "./pages/Knowledge/KnowledgeHome";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,9 @@ const App = () => (
           
           {/* Data Analysis Module Routes */}
           <Route path="/data-analysis" element={<DataAnalysisHome />} />
+          
+          {/* Knowledge Bank Module Routes */}
+          <Route path="/knowledge" element={<KnowledgeHome />} />
           
           {/* Catch-all Not Found Route */}
           <Route path="*" element={<NotFound />} />
