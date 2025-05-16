@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Camera, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 import { PhotoRecord } from "@/types/bodyMonitoring";
 
 interface PhotosGalleryProps {
@@ -64,9 +65,11 @@ const PhotosGallery: React.FC<PhotosGalleryProps> = ({ photos }) => {
           <div className="text-center py-10 text-muted-foreground">
             <Camera className="h-10 w-10 mx-auto mb-2 opacity-50" />
             <p>Nenhuma foto de progresso registrada</p>
-            <Button className="mt-4">
-              <Plus className="h-4 w-4 mr-2" />
-              Adicionar Primeira Foto
+            <Button asChild className="mt-4">
+              <Link to="/body-monitoring/photos/add">
+                <Plus className="h-4 w-4 mr-2" />
+                Adicionar Primeira Foto
+              </Link>
             </Button>
           </div>
         )}
