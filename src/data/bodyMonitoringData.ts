@@ -208,7 +208,7 @@ export const bodyGoals: BodyGoal[] = [
     startValue: 17.5,
     targetValue: 13.0,
     unit: "%",
-    measurementType: "weight",
+    measurementType: "bodyFat",
     bodyPart: "weight",
     weeklyTarget: 0.3, // 0.3% por semana
     status: "active",

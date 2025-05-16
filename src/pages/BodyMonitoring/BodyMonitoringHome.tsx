@@ -31,7 +31,7 @@ import {
   TrendingUp
 } from "lucide-react";
 
-import { bodyMeasurements, bodyGoals, progressPhotos } from "@/data/bodyMonitoringData";
+import { bodyMeasurementHistory as bodyMeasurements, photoRecords as progressPhotos, bodyGoals } from "@/data/bodyMonitoringData";
 
 const BodyMonitoringHome: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("overview");
@@ -86,6 +86,10 @@ const BodyMonitoringHome: React.FC = () => {
       
       return measurements;
     });
+  
+  // Filter active goals
+  const activeGoals = bodyGoals.filter(goal => goal.status === "active");
+  const completedGoals = bodyGoals.filter(goal => goal.status === "completed");
   
   return (
     <div className="space-y-6">
@@ -217,21 +221,21 @@ const BodyMonitoringHome: React.FC = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-base">Metas Ativas</CardTitle>
                 <CardDescription>
-                  {bodyGoals.filter(goal => goal.active).length} metas em progresso
+                  {activeGoals.length} metas em progresso
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  {bodyGoals.filter(goal => goal.active).slice(0, 2).map(goal => (
+                  {activeGoals.slice(0, 2).map(goal => (
                     <div key={goal.id} className="text-sm">
                       <div className="flex justify-between items-center mb-1">
-                        <span>{goal.name}</span>
+                        <span>{goal.title}</span>
                         <span className="text-xs">{goal.progress}%</span>
                       </div>
                       <Progress value={goal.progress} className="h-1" />
                     </div>
                   ))}
-                  {bodyGoals.filter(goal => goal.active).length === 0 && (
+                  {activeGoals.length === 0 && (
                     <div className="text-center text-muted-foreground">
                       Nenhuma meta ativa
                     </div>
@@ -328,7 +332,7 @@ const BodyMonitoringHome: React.FC = () => {
                       >
                         <img 
                           src={photo.imageUrl} 
-                          alt={`Progress photo ${photo.poseType}`} 
+                          alt={`Progress photo ${photo.pose}`} 
                           className="object-cover w-full h-full"
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
@@ -666,7 +670,7 @@ const BodyMonitoringHome: React.FC = () => {
                       >
                         <img 
                           src={photo.imageUrl} 
-                          alt={`Progress photo ${photo.poseType}`} 
+                          alt={`Progress photo ${photo.pose}`} 
                           className="object-cover w-full h-full"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -679,7 +683,7 @@ const BodyMonitoringHome: React.FC = () => {
                             {new Date(photo.date).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </p>
                           <p className="text-xs text-white/80 capitalize">
-                            {photo.poseType.replace(/([A-Z])/g, ' $1').trim()}
+                            {photo.pose.replace(/([A-Z])/g, ' $1').trim()}
                           </p>
                         </div>
                       </div>
@@ -813,12 +817,12 @@ const BodyMonitoringHome: React.FC = () => {
           </div>
           
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {bodyGoals.filter(goal => goal.active).map((goal) => (
+            {activeGoals.map((goal) => (
               <Card key={goal.id}>
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle>{goal.name}</CardTitle>
+                      <CardTitle>{goal.title}</CardTitle>
                       <CardDescription>{goal.description}</CardDescription>
                     </div>
                     <Badge>{goal.type !== "custom" ? goal.type : "Personalizado"}</Badge>
@@ -842,7 +846,10 @@ const BodyMonitoringHome: React.FC = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Valor Atual:</span>
-                      <span className="font-medium">{goal.currentValue}{goal.unit}</span>
+                      <span className="font-medium">
+                      {/* Calculate current value based on progress */}
+                      {(goal.startValue + ((goal.targetValue - goal.startValue) * (goal.progress / 100))).toFixed(1)}{goal.unit}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Meta Final:</span>
@@ -851,7 +858,9 @@ const BodyMonitoringHome: React.FC = () => {
                     <div className="flex justify-between">
                       <span>Progresso:</span>
                       <span className="font-medium">
-                        {Math.abs(goal.currentValue - goal.startValue)}{goal.unit} de {Math.abs(goal.targetValue - goal.startValue)}{goal.unit}
+                        {Math.abs(
+                          (goal.startValue + ((goal.targetValue - goal.startValue) * (goal.progress / 100))) - goal.startValue
+                        ).toFixed(1)}{goal.unit} de {Math.abs(goal.targetValue - goal.startValue).toFixed(1)}{goal.unit}
                       </span>
                     </div>
                   </div>
@@ -862,7 +871,7 @@ const BodyMonitoringHome: React.FC = () => {
               </Card>
             ))}
             
-            {bodyGoals.filter(goal => !goal.active).length > 0 && (
+            {completedGoals.length > 0 && (
               <Card className="md:col-span-2 lg:col-span-3">
                 <CardHeader>
                   <CardTitle>Metas Completadas</CardTitle>
@@ -872,11 +881,11 @@ const BodyMonitoringHome: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {bodyGoals.filter(goal => !goal.active).map((goal) => (
+                    {completedGoals.map((goal) => (
                       <div key={goal.id} className="border rounded-md p-4">
                         <div className="flex justify-between items-start">
                           <div>
-                            <h3 className="font-medium">{goal.name}</h3>
+                            <h3 className="font-medium">{goal.title}</h3>
                             <p className="text-xs text-muted-foreground">{goal.description}</p>
                           </div>
                           <Badge variant="secondary">Completada</Badge>
@@ -889,7 +898,7 @@ const BodyMonitoringHome: React.FC = () => {
                           <div className="flex justify-between">
                             <span>Alcançada em:</span>
                             <span className="font-medium">
-                              {new Date(goal.completedDate || new Date()).toLocaleDateString('pt-BR', {day: 'numeric', month: 'short', year: 'numeric'})}
+                              {new Date(goal.updatedAt).toLocaleDateString('pt-BR', {day: 'numeric', month: 'short', year: 'numeric'})}
                             </span>
                           </div>
                         </div>
