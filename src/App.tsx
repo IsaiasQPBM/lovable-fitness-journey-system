@@ -18,6 +18,7 @@ import AddMeasurement from "./pages/BodyMonitoring/AddMeasurement";
 import BodyGoals from "./pages/BodyMonitoring/BodyGoals";
 import AddGoal from "./pages/BodyMonitoring/AddGoal";
 import NutricaoHome from "./pages/Nutricao/NutricaoHome";
+import CalculadoraNutricional from "./pages/Nutricao/CalculadoraNutricional";
 import RecoveryHome from "./pages/Recovery/RecoveryHome";
 import DataAnalysisHome from "./pages/DataAnalysis/DataAnalysisHome";
 import KnowledgeHome from "./pages/Knowledge/KnowledgeHome";
@@ -55,6 +56,7 @@ const App = () => (
                 
                 {/* Nutrition Module Routes */}
                 <Route path="/nutricao" element={<NutricaoHome />} />
+                <Route path="/nutricao/calculadora" element={<CalculadoraNutricional />} />
                 
                 {/* Data Analysis Module Routes */}
                 <Route path="/data-analysis" element={<DataAnalysisHome />} />
