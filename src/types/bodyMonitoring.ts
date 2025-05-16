@@ -86,7 +86,7 @@ export interface BodyMeasurementRecord {
   weight?: number;                // em kg
   bodyFat?: number;               // em porcentagem
   bodyFatMethod?: BodyFatMethod;
-  height?: number;                // em cm
+  height?: number;                // em cm (adicionado para corrigir o erro)
   measurements: {
     [key in BodyPart]?: number;   // em cm
   };
@@ -100,7 +100,7 @@ export interface PhotoRecord {
   userId: string;
   date: Date;
   pose: PhotoPose;
-  poseType?: string;              // Added missing property used in BodyMonitoringHome
+  poseType?: string;              // Adicionado para compatibilidade com BodyMonitoringHome
   imageUrl: string;
   notes?: string;
   visibility: 'private' | 'shared' | 'public';
