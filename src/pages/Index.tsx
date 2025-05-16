@@ -4,8 +4,19 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Activity, BarChart, Book, Heart, LineChart, Timer, Utensils } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Index: React.FC = () => {
+  const { toast } = useToast();
+
+  const showComingSoonToast = (feature: string) => {
+    toast({
+      title: "Em breve",
+      description: `O módulo de ${feature} estará disponível em breve!`,
+      duration: 3000,
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6">Laércio Refundini App</h1>
@@ -113,7 +124,9 @@ const Index: React.FC = () => {
             </p>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" disabled className="w-full">Em Breve</Button>
+            <Link to="/data-analysis" className="w-full">
+              <Button variant="outline" className="w-full">Acessar Análises</Button>
+            </Link>
           </CardFooter>
         </Card>
 
@@ -132,7 +145,9 @@ const Index: React.FC = () => {
             </p>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" disabled className="w-full">Em Breve</Button>
+            <Link to="/knowledge" className="w-full">
+              <Button variant="outline" className="w-full">Acessar Conhecimento</Button>
+            </Link>
           </CardFooter>
         </Card>
       </div>
