@@ -162,18 +162,18 @@ const CrossModuleDataDisplay: React.FC<CrossModuleDataDisplayProps> = ({
                           <span className="text-sm text-muted-foreground capitalize">
                             {subKey.replace(/([A-Z])/g, ' $1')}:
                           </span>
-                          <span className="text-sm">{subValue}</span>
+                          <span className="text-sm">{String(subValue)}</span>
                         </div>
                       );
                     })}
                     
                     {/* Display message if exists */}
                     {value.message && (
-                      <p className="text-sm text-muted-foreground mt-1">{value.message}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{String(value.message)}</p>
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm">{value}</p>
+                  <p className="text-sm">{String(value)}</p>
                 )}
               </div>
             ))}
