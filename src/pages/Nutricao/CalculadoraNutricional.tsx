@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useIntegratedData } from '@/contexts/IntegratedDataContext';
 import { useToast } from "@/hooks/use-toast";
@@ -15,7 +14,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import { useNavigate } from 'react-router-dom';
 import { Heart, Activity, Gauge, Weight } from "lucide-react";
 import { NutritionCalculatorResult } from "@/types/nutrition";
-import { CrossModuleDataDisplay } from '@/components/CrossModuleDataDisplay';
+import CrossModuleDataDisplay from '@/components/CrossModuleDataDisplay';
 
 const CalculadoraNutricional = () => {
   const { data, updateNutritionData } = useIntegratedData();
