@@ -14,6 +14,7 @@ import BodyMonitoringHome from "./pages/BodyMonitoring/BodyMonitoringHome";
 import AddMeasurement from "./pages/BodyMonitoring/AddMeasurement";
 import BodyGoals from "./pages/BodyMonitoring/BodyGoals";
 import AddGoal from "./pages/BodyMonitoring/AddGoal";
+import NutricaoHome from "./pages/Nutricao/NutricaoHome";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,7 @@ const App = () => (
           <Route path="/body-monitoring/goals/add" element={<AddGoal />} />
           
           {/* Nutrition Module Routes */}
-          <Route path="/nutricao/*" element={<h1>Módulo de Nutrição</h1>} />
+          <Route path="/nutricao" element={<NutricaoHome />} />
           
           {/* Catch-all Not Found Route */}
           <Route path="*" element={<NotFound />} />

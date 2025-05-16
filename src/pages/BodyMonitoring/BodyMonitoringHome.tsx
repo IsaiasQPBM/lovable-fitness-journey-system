@@ -9,7 +9,7 @@ import {
   BarChart,
   Calendar,
   LineChart,
-  RulerSquare,
+  Ruler,
   Weight,
   ArrowDown,
   ArrowUp,
@@ -18,7 +18,8 @@ import {
   User,
   Plus,
   ChevronRight,
-  Clock
+  Clock,
+  Check
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { bodyMeasurementHistory, bodyGoals, progressReports, photoRecords } from "@/data/bodyMonitoringData";
@@ -85,7 +86,7 @@ const BodyMonitoringHome: React.FC = () => {
             <BarChart className="h-4 w-4" /> Visão Geral
           </TabsTrigger>
           <TabsTrigger value="measurements" className="flex items-center gap-2">
-            <RulerSquare className="h-4 w-4" /> Medidas
+            <Ruler className="h-4 w-4" /> Medidas
           </TabsTrigger>
           <TabsTrigger value="photos" className="flex items-center gap-2">
             <Camera className="h-4 w-4" /> Fotos
@@ -158,7 +159,7 @@ const BodyMonitoringHome: React.FC = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center justify-between">
                   <span className="flex items-center gap-2">
-                    <RulerSquare className="h-4 w-4 text-primary" />
+                    <Ruler className="h-4 w-4 text-primary" />
                     Cintura
                   </span>
                   <span className="text-sm flex items-center">
@@ -210,9 +211,7 @@ const BodyMonitoringHome: React.FC = () => {
                     <div className="flex justify-between text-xs text-muted-foreground">
                       <span>{goal.startValue} {goal.unit}</span>
                       <span>
-                        {goal.type === "weightLoss" || goal.type === "bodyFat" 
-                          ? "Meta: " + goal.targetValue
-                          : "Meta: " + goal.targetValue}
+                        {goal.type === "weightLoss" ? "Meta: " + goal.targetValue : "Meta: " + goal.targetValue}
                         {" " + goal.unit}
                       </span>
                     </div>
@@ -340,7 +339,8 @@ const BodyMonitoringHome: React.FC = () => {
                         <Badge variant="outline">{
                           photo.pose === 'front' ? 'Frontal' :
                           photo.pose === 'back' ? 'Costas' :
-                          photo.pose === 'side' ? 'Lateral' :
+                          photo.pose === 'left' ? 'Lateral Esquerda' :
+                          photo.pose === 'right' ? 'Lateral Direita' :
                           photo.pose
                         }</Badge>
                       </div>
@@ -718,7 +718,8 @@ const BodyMonitoringHome: React.FC = () => {
                       <Badge variant="outline">
                         {photo.pose === 'front' ? 'Frontal' :
                          photo.pose === 'back' ? 'Costas' :
-                         photo.pose === 'side' ? 'Lateral' :
+                         photo.pose === 'left' ? 'Lateral Esquerda' :
+                         photo.pose === 'right' ? 'Lateral Direita' :
                          photo.pose}
                       </Badge>
                       <span className="text-xs text-muted-foreground">
