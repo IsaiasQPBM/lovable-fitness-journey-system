@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,16 +30,16 @@ import {
   TrendingUp
 } from "lucide-react";
 
-import { bodyMeasurementHistory as bodyMeasurements, photoRecords as progressPhotos, bodyGoals } from "@/data/bodyMonitoringData";
+import { bodyMeasurementHistory, photoRecords, bodyGoals } from "@/data/bodyMonitoringData";
 
 const BodyMonitoringHome: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("overview");
   
   // Get the most recent measurement
-  const latestMeasurement = bodyMeasurements[0];
+  const latestMeasurement = bodyMeasurementHistory[0];
   
   // Get the previous measurement for comparison
-  const previousMeasurement = bodyMeasurements[1];
+  const previousMeasurement = bodyMeasurementHistory[1];
   
   // Calculate percentage changes for key metrics
   const weightChange = previousMeasurement && latestMeasurement ? 
@@ -59,7 +58,7 @@ const BodyMonitoringHome: React.FC = () => {
   };
   
   // Prepare data for the weight chart
-  const weightChartData = bodyMeasurements
+  const weightChartData = bodyMeasurementHistory
     .slice(0, 10) // Get the 10 most recent measurements
     .reverse() // Reverse to show chronologically
     .map(measurement => ({
@@ -69,7 +68,7 @@ const BodyMonitoringHome: React.FC = () => {
     }));
     
   // Prepare data for the measurements chart
-  const measurementsChartData = bodyMeasurements
+  const measurementsChartData = bodyMeasurementHistory
     .slice(0, 7) // Get the 7 most recent measurements
     .reverse() // Reverse to show chronologically
     .map(measurement => {
@@ -89,7 +88,8 @@ const BodyMonitoringHome: React.FC = () => {
   
   // Filter active goals
   const activeGoals = bodyGoals.filter(goal => goal.status === "active");
-  const completedGoals = bodyGoals.filter(goal => goal.status === "completed");
+  // Using "achieved" instead of "completed" to match the type definition
+  const completedGoals = bodyGoals.filter(goal => goal.status === "achieved");
   
   return (
     <div className="space-y-6">
@@ -288,7 +288,7 @@ const BodyMonitoringHome: React.FC = () => {
                         dot={{ r: 3 }}
                         activeDot={{ r: 5 }}
                       />
-                      {bodyMeasurements.some(m => m.bodyFat !== undefined) && (
+                      {bodyMeasurementHistory.some(m => m.bodyFat !== undefined) && (
                         <Line
                           yAxisId="right"
                           type="monotone"
@@ -323,9 +323,9 @@ const BodyMonitoringHome: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {progressPhotos.length > 0 ? (
+                {photoRecords.length > 0 ? (
                   <div className="grid grid-cols-3 gap-2">
-                    {progressPhotos.slice(0, 6).map((photo) => (
+                    {photoRecords.slice(0, 6).map((photo) => (
                       <div 
                         key={photo.id} 
                         className="aspect-square rounded-md bg-muted overflow-hidden relative"
@@ -416,9 +416,9 @@ const BodyMonitoringHome: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {bodyMeasurements.length > 0 ? (
+              {bodyMeasurementHistory.length > 0 ? (
                 <div className="space-y-4">
-                  {bodyMeasurements.slice(0, 5).map((measurement, index) => (
+                  {bodyMeasurementHistory.slice(0, 5).map((measurement, index) => (
                     <Card key={measurement.id} className="overflow-hidden">
                       <CardHeader className="bg-muted/40 py-3">
                         <div className="flex justify-between items-center">
@@ -456,7 +456,7 @@ const BodyMonitoringHome: React.FC = () => {
                     </Card>
                   ))}
                   
-                  {bodyMeasurements.length > 5 && (
+                  {bodyMeasurementHistory.length > 5 && (
                     <div className="flex justify-center mt-4">
                       <Button variant="outline">Ver Todas as Medições</Button>
                     </div>
@@ -500,7 +500,7 @@ const BodyMonitoringHome: React.FC = () => {
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      {bodyMeasurements.length > 0 && bodyMeasurements[0].measurements && Object.keys(bodyMeasurements[0].measurements).slice(0, 4).map((key, index) => {
+                      {bodyMeasurementHistory.length > 0 && bodyMeasurementHistory[0].measurements && Object.keys(bodyMeasurementHistory[0].measurements).slice(0, 4).map((key, index) => {
                         const colors = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300"];
                         return (
                           <Line
@@ -530,7 +530,7 @@ const BodyMonitoringHome: React.FC = () => {
               <CardHeader>
                 <CardTitle>Estatísticas e Análises</CardTitle>
                 <CardDescription>
-                  Informações detalhadas sobre sua composição corporal
+                  Informaç��es detalhadas sobre sua composição corporal
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -650,7 +650,7 @@ const BodyMonitoringHome: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {progressPhotos.length > 0 ? (
+              {photoRecords.length > 0 ? (
                 <div>
                   <div className="mb-6">
                     <h3 className="text-sm font-medium mb-3">Filtrar por:</h3>
@@ -663,7 +663,7 @@ const BodyMonitoringHome: React.FC = () => {
                   </div>
                   
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {progressPhotos.map((photo) => (
+                    {photoRecords.map((photo) => (
                       <div 
                         key={photo.id} 
                         className="aspect-[3/4] rounded-md bg-muted overflow-hidden relative group"
@@ -703,7 +703,7 @@ const BodyMonitoringHome: React.FC = () => {
             </CardContent>
           </Card>
           
-          {progressPhotos.length > 0 && (
+          {photoRecords.length > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle>Comparar Progresso</CardTitle>
@@ -725,9 +725,9 @@ const BodyMonitoringHome: React.FC = () => {
                       <div>
                         <h3 className="text-sm font-medium mb-2">Antes:</h3>
                         <div className="border rounded-md aspect-[3/4] overflow-hidden">
-                          {progressPhotos.filter(p => p.poseType === "frontRelaxed")[1] ? (
+                          {photoRecords.filter(p => p.pose === "frontRelaxed")[1] ? (
                             <img 
-                              src={progressPhotos.filter(p => p.poseType === "frontRelaxed")[1].imageUrl} 
+                              src={photoRecords.filter(p => p.pose === "frontRelaxed")[1].imageUrl} 
                               alt="Before" 
                               className="object-cover w-full h-full"
                             />
@@ -738,8 +738,8 @@ const BodyMonitoringHome: React.FC = () => {
                           )}
                         </div>
                         <p className="text-xs text-center mt-1 text-muted-foreground">
-                          {progressPhotos.filter(p => p.poseType === "frontRelaxed")[1] ? 
-                            new Date(progressPhotos.filter(p => p.poseType === "frontRelaxed")[1].date).toLocaleDateString() : 
+                          {photoRecords.filter(p => p.pose === "frontRelaxed")[1] ? 
+                            new Date(photoRecords.filter(p => p.pose === "frontRelaxed")[1].date).toLocaleDateString() : 
                             'Data não selecionada'}
                         </p>
                       </div>
@@ -747,9 +747,9 @@ const BodyMonitoringHome: React.FC = () => {
                       <div>
                         <h3 className="text-sm font-medium mb-2">Depois:</h3>
                         <div className="border rounded-md aspect-[3/4] overflow-hidden">
-                          {progressPhotos.filter(p => p.poseType === "frontRelaxed")[0] ? (
+                          {photoRecords.filter(p => p.pose === "frontRelaxed")[0] ? (
                             <img 
-                              src={progressPhotos.filter(p => p.poseType === "frontRelaxed")[0].imageUrl} 
+                              src={photoRecords.filter(p => p.pose === "frontRelaxed")[0].imageUrl} 
                               alt="After" 
                               className="object-cover w-full h-full"
                             />
@@ -760,8 +760,8 @@ const BodyMonitoringHome: React.FC = () => {
                           )}
                         </div>
                         <p className="text-xs text-center mt-1 text-muted-foreground">
-                          {progressPhotos.filter(p => p.poseType === "frontRelaxed")[0] ? 
-                            new Date(progressPhotos.filter(p => p.poseType === "frontRelaxed")[0].date).toLocaleDateString() : 
+                          {photoRecords.filter(p => p.pose === "frontRelaxed")[0] ? 
+                            new Date(photoRecords.filter(p => p.pose === "frontRelaxed")[0].date).toLocaleDateString() : 
                             'Data não selecionada'}
                         </p>
                       </div>
@@ -771,8 +771,8 @@ const BodyMonitoringHome: React.FC = () => {
                   <div className="border rounded-md p-4">
                     <h3 className="text-sm font-medium mb-3">Linha do Tempo</h3>
                     <div className="space-y-3">
-                      {progressPhotos
-                        .filter(p => p.poseType === "frontRelaxed")
+                      {photoRecords
+                        .filter(p => p.pose === "frontRelaxed")
                         .slice(0, 5)
                         .map((photo) => (
                           <div key={photo.id} className="flex items-center gap-3">
