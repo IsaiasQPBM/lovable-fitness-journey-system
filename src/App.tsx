@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NotificationProvider } from "./hooks/use-notifications";
+import { IntegratedDataProvider } from "./contexts/IntegratedDataContext";
 import MainLayout from "./components/Layout/MainLayout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -29,43 +30,45 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <NotificationProvider>
-        <BrowserRouter>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/dashboard" element={<UnifiedDashboard />} />
-              
-              {/* Treinos Module Routes */}
-              <Route path="/treinos" element={<TreinosManagement />} />
-              <Route path="/exercise-library" element={<ExerciseLibrary />} />
-              <Route path="/training-planner" element={<TrainingPlanner />} />
-              <Route path="/workout-execution" element={<WorkoutExecution />} />
-              
-              {/* Body Monitoring Module Routes */}
-              <Route path="/body-monitoring" element={<BodyMonitoringHome />} />
-              <Route path="/body-monitoring/measurements/add" element={<AddMeasurement />} />
-              <Route path="/body-monitoring/goals" element={<BodyGoals />} />
-              <Route path="/body-monitoring/goals/add" element={<AddGoal />} />
-              
-              {/* Recovery Module Routes */}
-              <Route path="/recovery" element={<RecoveryHome />} />
-              
-              {/* Nutrition Module Routes */}
-              <Route path="/nutricao" element={<NutricaoHome />} />
-              
-              {/* Data Analysis Module Routes */}
-              <Route path="/data-analysis" element={<DataAnalysisHome />} />
-              
-              {/* Knowledge Bank Module Routes */}
-              <Route path="/knowledge" element={<KnowledgeHome />} />
-              
-              {/* Catch-all Not Found Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </MainLayout>
-        </BrowserRouter>
-      </NotificationProvider>
+      <IntegratedDataProvider>
+        <NotificationProvider>
+          <BrowserRouter>
+            <MainLayout>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/dashboard" element={<UnifiedDashboard />} />
+                
+                {/* Treinos Module Routes */}
+                <Route path="/treinos" element={<TreinosManagement />} />
+                <Route path="/exercise-library" element={<ExerciseLibrary />} />
+                <Route path="/training-planner" element={<TrainingPlanner />} />
+                <Route path="/workout-execution" element={<WorkoutExecution />} />
+                
+                {/* Body Monitoring Module Routes */}
+                <Route path="/body-monitoring" element={<BodyMonitoringHome />} />
+                <Route path="/body-monitoring/measurements/add" element={<AddMeasurement />} />
+                <Route path="/body-monitoring/goals" element={<BodyGoals />} />
+                <Route path="/body-monitoring/goals/add" element={<AddGoal />} />
+                
+                {/* Recovery Module Routes */}
+                <Route path="/recovery" element={<RecoveryHome />} />
+                
+                {/* Nutrition Module Routes */}
+                <Route path="/nutricao" element={<NutricaoHome />} />
+                
+                {/* Data Analysis Module Routes */}
+                <Route path="/data-analysis" element={<DataAnalysisHome />} />
+                
+                {/* Knowledge Bank Module Routes */}
+                <Route path="/knowledge" element={<KnowledgeHome />} />
+                
+                {/* Catch-all Not Found Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </MainLayout>
+          </BrowserRouter>
+        </NotificationProvider>
+      </IntegratedDataProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

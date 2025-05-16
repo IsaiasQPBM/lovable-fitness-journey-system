@@ -6,6 +6,7 @@ import { Activity, BarChart, Book, Heart, LineChart, Home, Utensils } from "luci
 import NotificationsCenter from "@/components/Notifications/NotificationsCenter";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useIntegratedData } from "@/contexts/IntegratedDataContext";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,10 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const location = useLocation();
   const { toast } = useToast();
+  const { data } = useIntegratedData();
+  
+  // Example of using integrated data in the layout
+  const hasImportantNotification = data.recovery.readinessScore < 60;
   
   const navItems = [
     { name: "Início", path: "/", icon: <Home className="h-5 w-5" /> },
@@ -30,7 +35,30 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       {/* Header */}
       <header className="bg-background border-b sticky top-0 z-30">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="font-bold text-xl">LAFIT</Link>
+          <div className="flex items-center">
+            <Link to="/" className="font-bold text-xl">LAFIT</Link>
+            
+            {/* Integration Status Indicator */}
+            <div className="ml-3 hidden md:flex items-center">
+              <div className="flex items-center ml-2 px-2 py-1 rounded-full text-xs border">
+                <span className={`w-2 h-2 rounded-full mr-1 ${
+                  hasImportantNotification ? 'bg-amber-500' : 'bg-emerald-500'
+                }`}></span>
+                <span className="text-muted-foreground">Sistema Integrado</span>
+              </div>
+            </div>
+            
+            {/* Dashboard Quick Access */}
+            {location.pathname !== "/dashboard" && (
+              <Link 
+                to="/dashboard" 
+                className="ml-4 text-xs text-primary hidden md:flex items-center"
+              >
+                <span>Dashboard Unificado</span>
+              </Link>
+            )}
+          </div>
+          
           <div className="flex items-center gap-2">
             <NotificationsCenter />
             <Button 
