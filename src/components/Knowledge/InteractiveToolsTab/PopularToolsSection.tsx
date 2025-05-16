@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getPopularTools } from "@/data/knowledge";
-import { Calculator, Activity, PenTool, HumanStanding, ChevronRight } from "lucide-react";
+import { Calculator, Activity, PenTool, User, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const PopularToolsSection: React.FC = () => {
@@ -19,7 +19,7 @@ const PopularToolsSection: React.FC = () => {
       case "assessment":
         return <PenTool className="h-4 w-4" />;
       case "anatomical-model":
-        return <HumanStanding className="h-4 w-4" />;
+        return <User className="h-4 w-4" />; // Changed to User icon
       default:
         return <Calculator className="h-4 w-4" />;
     }

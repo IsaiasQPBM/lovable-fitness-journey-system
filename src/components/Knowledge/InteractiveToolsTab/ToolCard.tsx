@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InteractiveTool } from "@/types/knowledge";
-import { Calculator, Activity, PenTool, HumanStanding, ExternalLink } from "lucide-react";
+import { Calculator, Activity, PenTool, User, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface ToolCardProps {
@@ -22,7 +22,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       case "assessment":
         return <PenTool className="h-5 w-5" />;
       case "anatomical-model":
-        return <HumanStanding className="h-5 w-5" />;
+        return <User className="h-5 w-5" />; // Changed to User icon
       default:
         return <Calculator className="h-5 w-5" />;
     }
