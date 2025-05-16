@@ -2,102 +2,111 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import { 
-  BarChart,
-  Calculator,
-  Calendar,
-  Check,
-  Droplets,
-  ListPlus,
+  Apple, 
+  BarChart, 
+  Calculator, 
+  Calendar, 
+  Droplets, 
+  ListPlus, 
+  PlusCircle, 
+  Timer, 
+  Utensils,
   Plus,
-  Timer,
-  Utensils
+  ArrowRight,
+  Book,
+  Check
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const NutricaoHome: React.FC = () => {
+  const { toast } = useToast();
+  const [selectedTab, setSelectedTab] = useState("overview");
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight mb-2">Nutrição</h1>
         <p className="text-muted-foreground">
-          Gerencie sua alimentação e suplementação com base em princípios científicos.
+          Gerencie sua alimentação e suplementação com base nos princípios de Laércio Refundini.
         </p>
       </div>
-      
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Ainda Estamos Trabalhando Nisso!</CardTitle>
+          <CardDescription>
+            Estamos desenvolvendo nosso módulo completo de nutrição.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center py-8 text-muted-foreground">
+            Em breve você terá acesso a recursos avançados de nutrição, incluindo calculadora de necessidades nutricionais,
+            banco de dados de alimentos, registro de refeições, análise nutricional e gestão de suplementação.
+          </p>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>Cálculo Nutricional</CardTitle>
+            <CardTitle>Calculadora Nutricional</CardTitle>
             <CardDescription>
               Calcule suas necessidades nutricionais personalizadas
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
-            <Calculator className="h-16 w-16 text-muted-foreground" />
             <p className="text-muted-foreground text-center">
-              Calcule suas necessidades calóricas e distribuição de macronutrientes
+              Determine suas necessidades calóricas e distribuição ideal de macronutrientes
             </p>
+            <Button>
+              <Calculator className="mr-2 h-4 w-4" />
+              Acessar Calculadora
+            </Button>
           </CardContent>
-          <CardFooter>
-            <Button className="w-full">Calculadora Nutricional</Button>
-          </CardFooter>
         </Card>
         
         <Card>
           <CardHeader>
             <CardTitle>Registro Alimentar</CardTitle>
             <CardDescription>
-              Registre e acompanhe sua alimentação diária
+              Acompanhe sua alimentação diária
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
-            <Utensils className="h-16 w-16 text-muted-foreground" />
             <p className="text-muted-foreground text-center">
-              Registre refeições, monitore calorias e macronutrientes
+              Registre suas refeições e acompanhe seu consumo de calorias e nutrientes
             </p>
+            <Button>
+              <Utensils className="mr-2 h-4 w-4" />
+              Registrar Refeição
+            </Button>
           </CardContent>
-          <CardFooter>
-            <Button className="w-full">Diário Alimentar</Button>
-          </CardFooter>
         </Card>
         
         <Card>
           <CardHeader>
-            <CardTitle>Planos Alimentares</CardTitle>
+            <CardTitle>Plano de Suplementação</CardTitle>
             <CardDescription>
-              Crie e gerencie seus planos de alimentação
+              Gerencie seus suplementos nutricionais
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
-            <ListPlus className="h-16 w-16 text-muted-foreground" />
             <p className="text-muted-foreground text-center">
-              Planeje suas refeições e organize seu cardápio semanal
+              Organize sua suplementação e receba lembretes para não esquecer nenhuma dose
             </p>
+            <Button>
+              <Apple className="mr-2 h-4 w-4" />
+              Gerenciar Suplementos
+            </Button>
           </CardContent>
-          <CardFooter>
-            <Button className="w-full">Planejar Refeições</Button>
-          </CardFooter>
         </Card>
       </div>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle>Ainda Estamos Trabalhando Nisso!</CardTitle>
-          <CardDescription>
-            O módulo completo de nutrição está em desenvolvimento.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-center py-8 text-muted-foreground">
-            Em breve você terá acesso a todas as funcionalidades do módulo de nutrição,
-            incluindo banco de alimentos, planejamento de refeições, suplementação e muito mais!
-          </p>
-        </CardContent>
-      </Card>
     </div>
   );
 };
